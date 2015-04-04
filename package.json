@@ -1,0 +1,26 @@
+{
+  "name": "git-group",
+  "version": "0.0.0",
+  "description": "Manage multiple Git working copies",
+  "main": "index.js",
+  "bin": {
+    "git-group": "./bin/git-group"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "minimist": "~1.1.1",
+    "nodegit": "~0.3.3",
+    "temporary": "0.0.8",
+    "q": "~1.2.0",
+    "rmdir": "~1.1.0",
+    "underscore": "~1.8.3",
+    "fs-extra": "~0.18.0"
+  },
+  "devDependencies": {
+    "mversion": "~1.10.0"
+  }
+}
