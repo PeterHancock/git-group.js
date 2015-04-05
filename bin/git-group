@@ -1,39 +1,33 @@
 #!/usr/bin/env node
 
+var push = Array.prototype.push;
 
 var TASKS = {
   init: true,
   add: true
 }
 
-
-var argv = require('minimist')(process.argv.slice(2), { '--': true });
+var argv = require('minimist')(process.argv.slice(2), { '--': true , alias: { h: 'help' } });
 
 var task = argv._[0];
 
-if (!TASKS[task]) {
+
+if (!TASKS[task] || argv.help) {
   return console.log(TASKS);
-}
-
-var config = {
-  cwd: process.cwd()
-}
-
-var args = argv._.slice(1);
-
-args.push(config);
-
-
-if (!TASKS[task]) {
-  console.log(TASKS);
 } else {
 
-  require('../src/cmd/' + task).apply(null, args)
+  var config = {
+    cwd: process.cwd()
+  }
+  var cmd = require('../src/cmd/' + task);
+  var cmdArgs = [config];
+  push.apply(cmdArgs, argv._.slice(1));
+  cmd.apply(null, cmdArgs)
     .then(function () {
       console.log('git group', process.cwd(), argv._, argv['--']);
     })
-    .fail(console.error);
+    .fail(function ()  {
+      console.trace();
+      console.error.apply(console, arguments);
+    })
 }
-
-
-

@@ -2,11 +2,10 @@ var Q = require('q');
 var _ = require('underscore');
 
 var slice = Array.prototype.slice;
-var push = Array.prototype.push;
 
 module.exports = function nodeify(fn, adapter) {
   return function () {
-    var args = slice.apply(arguments);
+    var args = slice.call(arguments);
     if (args.length == 0) {
       return fn.call();
     }
