@@ -11,11 +11,9 @@ var argv = require('minimist')(process.argv.slice(2), { '--': true , alias: { h:
 
 var task = argv._[0];
 
-
 if (!TASKS[task] || argv.help) {
   return console.log(TASKS);
 } else {
-
   var config = {
     cwd: process.cwd()
   }
@@ -23,11 +21,8 @@ if (!TASKS[task] || argv.help) {
   var cmdArgs = [config];
   push.apply(cmdArgs, argv._.slice(1));
   cmd.apply(null, cmdArgs)
-    .then(function () {
-      console.log('git group', process.cwd(), argv._, argv['--']);
-    })
-    .fail(function ()  {
-      console.trace();
-      console.error.apply(console, arguments);
+    .fail(function (reason) {
+      //console.trace();
+      console.error(reason);
     })
 }
